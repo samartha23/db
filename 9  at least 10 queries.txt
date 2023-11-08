@@ -1,0 +1,67 @@
+
+
+
+db.students.insertMany([
+  {
+    "name": "John Doe",
+    "age": 20,
+    "gender": "Male",
+    "subjects": ["Mathematics", "Physics"],
+    "grade": "A"
+  },
+  {
+    "name": "Jane Smith",
+    "age": 22,
+    "gender": "Female",
+    "subjects": ["Biology", "Chemistry"],
+    "grade": "B"
+  },
+  {
+    "name": "Michael Johnson",
+    "age": 21,
+    "gender": "Male",
+    "subjects": ["Computer Science", "Mathematics"],
+    "grade": "A"
+  }
+])
+
+
+
+
+a. find and findOne (specific values)
+
+
+db.students.find({ name: "John Doe" });
+db.students.findOne({ name: "Jane Smith" });
+
+
+
+
+b. Query criteria (Query conditionals, OR queries, $not, Conditional semantics)
+
+
+// Query conditionals
+db.students.find({ age: { $gte: 21 } });
+
+// OR queries
+db.students.find({ $or: [{ gender: "Male" }, { age: { $lt: 22 } }] });
+
+// $not
+db.students.find({ age: { $not: { $gt: 22 } } });
+
+// Conditional semantics
+db.students.find({ $and: [{ age: { $gte: 20 } }, { grade: "A" }] });
+
+
+
+Type-specific queries (Null, Regular expression, Querying arrays)
+
+
+// Null
+db.students.find({ subjects: null });
+
+// Regular expression
+db.students.find({ name: { $regex: "^J" } });
+
+// Querying arrays
+db.students.find({ subjects: "Mathematics" });

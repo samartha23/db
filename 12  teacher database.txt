@@ -1,0 +1,23 @@
+db.teachers.insertMany([
+  {
+    "teacherid": 1,
+    "name": "John Doe",
+    "department": "Mathematics",
+    "salary": 60000,
+    "status": "Approved"
+  },
+  {
+    "teacherid": 2,
+    "name": "Jane Smith",
+    "department": "Science",
+    "salary": 55000,
+    "status": "Approved"
+  },
+  {
+    "teacherid": 3,
+    "name": "Michael Johnson",
+    "department": "Computer Science",
+    "salary": 65000,
+    "status": "Not Approved"
+  }
+]);

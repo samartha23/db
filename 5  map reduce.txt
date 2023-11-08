@@ -1,0 +1,36 @@
+db.sales.insertMany([
+  { item: "bread", quantity: 5, price: 2 },
+  { item: "milk", quantity: 2, price: 4 },
+  { item: "bread", quantity: 3, price: 2.5 },
+  { item: "milk", quantity: 1, price: 5 }
+]);
+
+
+Map Function:
+
+
+
+var mapFunction = function() {
+  emit(this.item, this.quantity * this.price);
+};
+
+
+Reduce Function:
+
+
+var reduceFunction = function(key, values) {
+  return Array.sum(values);
+};
+
+
+
+Execute Map-Reduce Operation:
+
+
+db.sales.mapReduce(
+  mapFunction,
+  reduceFunction,
+  { out: "total_revenue" }
+);
+
+

@@ -1,0 +1,131 @@
+
+
+db.students.insertMany([
+  {
+    "name": "Student1",
+    "subjects": [
+      {
+        "name": "DBMS",
+        "marks": 85
+      },
+      {
+        "name": "TOC",
+        "marks": 70
+      },
+      {
+        "name": "CNT",
+        "marks": 55
+      }
+    ]
+  },
+  {
+    "name": "Student2",
+    "subjects": [
+      {
+        "name": "DBMS",
+        "marks": 70
+      },
+      {
+        "name": "TOC",
+        "marks": 65
+      },
+      {
+        "name": "CNT",
+        "marks": 40
+      }
+    ]
+  },
+  {
+    "name": "Student3",
+    "subjects": [
+      {
+        "name": "DBMS",
+        "marks": 90
+      },
+      {
+        "name": "TOC",
+        "marks": 75
+      },
+      {
+        "name": "CNT",
+        "marks": 60
+      }
+    ]
+  }
+])
+
+
+
+1. Find the record of the students who have got the highest marks in DBMS subject:
+
+
+
+db.students.aggregate([
+  { $unwind: "$subjects" },
+  { $match: { "subjects.name": "DBMS" } },
+  { $sort: { "subjects.marks": -1 } },
+  { $limit: 1 }
+])
+
+
+2. Find the average result of TOC subject:
+
+
+db.students.aggregate([
+  { $unwind: "$subjects" },
+  { $match: { "subjects.name": "TOC" } },
+  {
+    $group: {
+      _id: null,
+      averageResult: { $avg: "$subjects.marks" }
+    }
+  }
+])
+
+
+
+3. Find the record of the students who have got the lowest marks in CNT subject:
+
+
+
+db.students.aggregate([
+  { $unwind: "$subjects" },
+  { $match: { "subjects.name": "CNT" } },
+  { $sort: { "subjects.marks": 1 } },
+  { $limit: 1 }
+])
+
+
+
+4. Find the total number of students who scored first class:
+
+
+
+db.students.aggregate([
+  {
+    $project: {
+      _id: 0,
+      name: 1,
+      firstClass: {
+        $cond: [{ $gte: [{ $avg: "$subjects.marks" }, 60] }, 1, 0]
+      }
+    }
+  },
+  {
+    $match: { firstClass: 1 }
+  },
+  {
+    $count: "firstClassStudents"
+  }
+])
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,79 @@
+db.instructors.insertMany([
+  {
+    "id": 1,
+    "first_name": "John",
+    "last_name": "Doe",
+    "department": "AIML",
+    "salary": 60000,
+    "address": {
+      "city": "Mumbai",
+      "state": "Maharashtra",
+      "country": "India"
+    }
+  },
+  {
+    "id": 2,
+    "first_name": "Jane",
+    "last_name": "Smith",
+    "department": "Computer",
+    "salary": 45000,
+    "address": {
+      "city": "Delhi",
+      "state": "Delhi",
+      "country": "India"
+    }
+  },
+  {
+    "id": 3,
+    "first_name": "Michael",
+    "last_name": "Johnson",
+    "department": "AIML",
+    "salary": 55000,
+    "address": {
+      "city": "Pune",
+      "state": "Maharashtra",
+      "country": "India"
+    }
+  },
+  {
+    "id": 4,
+    "first_name": "Saurabh",
+    "last_name": "Gupta",
+    "department": "IT",
+    "salary": 80000,
+    "address": {
+      "city": "Nagpur",
+      "state": "Maharashtra",
+      "country": "India"
+    }
+  }
+])
+
+
+
+
+a. Find out details of instructors having salary > 40000 and < 80000:
+
+
+db.instructors.find({ salary: { $gt: 40000, $lt: 80000 } });
+
+
+
+b. Display the details of instructors who are living in Maharashtra:
+
+
+db.instructors.find({ "address.state": "Maharashtra" });
+
+
+c. Find out details of instructors working in the AIML department:
+
+
+db.instructors.find({ department: "AIML" });
+
+
+
+d. Find instructor id along with department and salary where department has substring "o":
+
+
+db.instructors.find({ department: { $regex: /o/ } }, { id: 1, department: 1, salary: 1, _id: 0 });
+

@@ -1,0 +1,59 @@
+db.instructors.insertMany([
+  {
+    "id": 1,
+    "name": "John Doe",
+    "department": "IT",
+    "salary": 60000
+  },
+  {
+    "id": 2,
+    "name": "Jane Smith",
+    "department": "Computer",
+    "salary": 45000
+  },
+  {
+    "id": 3,
+    "name": "Michael Johnson",
+    "department": "Management",
+    "salary": 55000
+  },
+  {
+    "id": 4,
+    "name": "Saurabh Gupta",
+    "department": "Engineering",
+    "salary": 52000
+  }
+])
+
+
+
+a. Find Instructors with id 1, 2, 3:
+
+
+db.instructors.find({ id: { $in: [1, 2, 3] } });
+
+
+
+b. Find details of instructors except 1, 2, 3:
+
+
+db.instructors.find({ id: { $nin: [1, 2, 3] } });
+
+
+
+c. Find instructors whose salary is neither less than 50000 nor department is "Computer":
+
+
+db.instructors.find({
+  $nor: [
+    { salary: { $lt: 50000 } },
+    { department: "Computer" }
+  ]
+});
+
+
+
+d. Display details of instructors whose department has the substring "e":
+
+
+db.instructors.find({ department: { $regex: /e/ } });

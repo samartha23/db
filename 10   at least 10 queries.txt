@@ -1,0 +1,72 @@
+db.students.insertMany([
+  {
+    "name": "John Doe",
+    "age": 20,
+    "gender": "Male",
+    "subjects": ["Mathematics", "Physics"],
+    "grade": "A"
+  },
+  {
+    "name": "Jane Smith",
+    "age": 22,
+    "gender": "Female",
+    "subjects": ["Biology", "Chemistry"],
+    "grade": "B"
+  },
+  {
+    "name": "Michael Johnson",
+    "age": 21,
+    "gender": "Male",
+    "subjects": ["Computer Science", "Mathematics"],
+    "grade": "A"
+  }
+])
+
+
+
+
+a. $where queries
+
+
+db.students.find({ $where: "this.age > 20" });
+
+
+
+b. Cursors (Limits, skips, sorts, advanced query options)
+
+
+// Limits
+db.students.find().limit(2);
+
+// Skips
+db.students.find().skip(2);
+
+// Sorts
+db.students.find().sort({ age: 1 });
+
+// Advanced query options
+db.students.find({ $and: [{ age: { $gte: 20 } }, { gender: "Male" }] });
+
+
+
+
+c. Database commands
+
+
+// Show all databases
+show dbs;
+
+// Switch to a specific database
+use myDatabase;
+
+// Show collections in the current database
+show collections;
+
+// Show all indexes on a collection
+db.students.getIndexes();
+
+
+
+
+
+

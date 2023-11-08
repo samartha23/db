@@ -1,0 +1,103 @@
+
+db.books.insertMany([
+  {
+    "title": "Management Basics",
+    "subject": "Management",
+    "publication": "Pearson",
+    "price": 400,
+    "type": "book",
+    "department": "Management"
+  },
+  {
+    "title": "Financial Management",
+    "subject": "Finance",
+    "publication": "McGraw Hill",
+    "price": 600,
+    "type": "book",
+    "department": "Finance"
+  },
+  {
+    "title": "Marketing Strategies",
+    "subject": "Marketing",
+    "publication": "Pearson",
+    "price": 450,
+    "type": "book",
+    "department": "Marketing"
+  },
+  {
+    "title": "IT Basics",
+    "subject": "IT",
+    "publication": "Oxford",
+    "price": 550,
+    "type": "book",
+    "department": "IT"
+  },
+  {
+    "title": "Journal of IT",
+    "subject": "IT",
+    "type": "journal",
+    "department": "IT"
+  },
+  {
+    "title": "Journal of Finance",
+    "subject": "Finance",
+    "type": "journal",
+    "department": "Finance"
+  },
+  {
+    "title": "Journal of Management",
+    "subject": "Management",
+    "type": "journal",
+    "department": "Management"
+  }
+])
+
+
+
+
+1. List the books of management subjects:
+
+
+db.books.find({ subject: "Management", type: "book" });
+
+
+
+
+2. List the books whose publication is "Pearson":
+
+
+db.books.find({ publication: "Pearson" });
+
+
+
+3. List the number of journals:
+
+
+db.books.find({ type: "journal" }).count();
+
+
+
+
+4. List the number of books whose price is less than Rs.500:
+
+
+db.books.find({ price: { $lt: 500 }, type: "book" }).count();
+
+
+
+
+5. Find the total investment for the IT department (IT books):
+
+
+db.books.aggregate([
+  { $match: { department: "IT", type: "book" } },
+  {
+    $group: {
+      _id: null,
+      totalInvestment: { $sum: "$price" }
+    }
+  }
+])
+
+
+

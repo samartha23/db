@@ -1,0 +1,11 @@
+
+
+
+ db.tutorial.insert({tutorial_id:1,tut_title:'addition',author:'john',submission_date:'1-12-23'})
+ db.tutorial.find().pretty()
+db.tutorial.update({tutorial_id:1},{$set:{tut_title:'multiplication'}})
+ db.tutorial.remove({tutorial_id:1})
+db.tutorial.find({tutorial_id:1},{author:1,_id:0}).pretty()
+db.tutorial.find({author:{$regex:'jo'}}).pretty()
+db.tutorial.find().sort({tutorial_id:1}).pretty()
+db.tutorial.find().sort({tutorial_id:-1}).pretty()

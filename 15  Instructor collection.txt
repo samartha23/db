@@ -1,0 +1,51 @@
+db.instructors.insertMany([
+  {
+    "name": "John Doe",
+    "department": "IT",
+    "salary": 50000,
+    "status": "approved"
+  },
+  {
+    "name": "Jane Smith",
+    "department": "Computer",
+    "salary": 45000,
+    "status": "pending"
+  },
+  {
+    "name": "Michael Johnson",
+    "department": "IT",
+    "salary": 55000,
+    "status": "approved"
+  }
+])
+
+
+
+a. Find out details of instructors working in the IT department:
+
+
+db.instructors.find({ department: "IT" });
+
+
+
+b. Find out details of instructors who have a salary > 40000:
+
+
+db.instructors.find({ salary: { $gt: 40000 } });
+
+
+
+c. Give the count of instructors in the Computer department:
+
+
+db.instructors.find({ department: "Computer" }).count();
+
+
+
+d. Give an increment of 10000 to instructors whose status is approved:
+
+
+db.instructors.updateMany(
+  { status: "approved" },
+  { $inc: { salary: 10000 } }
+);

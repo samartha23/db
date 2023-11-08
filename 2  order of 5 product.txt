@@ -1,0 +1,32 @@
+db.orders.insertOne({
+  "order_id": 1,
+  "items": [
+    { "product": "keyboard", "quantity": 2, "unit_price": 25 },
+    { "product": "monitor", "quantity": 1, "unit_price": 150 },
+    { "product": "mouse", "quantity": 3, "unit_price": 15 },
+    { "product": "printer", "quantity": 1, "unit_price": 200 },
+    { "product": "processor", "quantity": 2, "unit_price": 100 }
+  ],
+  "customer_name": "John Doe",
+  "order_date": ISODate("2023-11-04"),
+  "total_amount": 0
+});
+
+
+
+var order = db.orders.findOne({ "order_id": 1 });
+var totalAmount = 0;
+print("Order ID: " + order.order_id);
+print("Customer Name: " + order.customer_name);
+print("Order Date: " + order.order_date);
+print("------------------------------");
+print("Products\tQuantity\tUnit Price\tAmount");
+print("------------------------------");
+order.items.forEach(function(item) {
+  var amount = item.quantity * item.unit_price;
+  totalAmount += amount;
+  print(item.product + "\t" + item.quantity + "\t\t" + item.unit_price + "\t\t" + amount);
+});
+print("------------------------------");
+print("Total Amount: " + totalAmount);
+db.orders.updateOne({ "order_id": 1 }, { $set: { "total_amount": totalAmount } });

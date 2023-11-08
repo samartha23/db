@@ -1,0 +1,70 @@
+a. Inserting and saving documents:
+
+
+// Batch insert
+db.products.insertMany([
+  { name: "Product1", category: "Category1", price: 50 },
+  { name: "Product2", category: "Category2", price: 100 },
+  { name: "Product3", category: "Category1", price: 75 }
+]);
+
+// Insert with validation
+db.runCommand({
+  collMod: "products",
+  validator: {
+    $jsonSchema: {
+      bsonType: "object",
+      required: ["name", "category", "price"],
+      properties: {
+        name: {
+          bsonType: "string",
+          description: "must be a string and is required"
+        },
+        category: {
+          bsonType: "string",
+          description: "must be a string and is required"
+        },
+        price: {
+          bsonType: "number",
+          description: "must be a number and is required"
+        }
+      }
+    }
+  }
+});
+
+
+
+b. Removing documents:
+
+
+db.products.deleteOne({ name: "Product1" });
+
+
+c. Updating documents:
+
+
+// Document replacement
+db.products.updateOne({ name: "Product2" }, { name: "UpdatedProduct", category: "Category3", price: 120 });
+
+// Using modifiers
+db.products.updateOne({ name: "UpdatedProduct" }, { $inc: { price: 30 } });
+
+// Upserts
+db.products.updateOne({ name: "Product4" }, { $set: { name: "Product4", category: "Category4", price: 80 } }, { upsert: true });
+
+// Updating multiple documents
+db.products.updateMany({ category: "Category1" }, { $inc: { price: 10 } });
+
+// Returning updated documents
+db.products.findAndModify({
+  query: { name: "Product3" },
+  update: { $inc: { price: 20 } },
+  new: true
+});
+
+
+
+
+
+

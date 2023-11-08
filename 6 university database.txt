@@ -1,0 +1,74 @@
+
+
+
+db.teachers.insertMany([
+  {
+    "name": "John Doe",
+    "department": "IT",
+    "salary": 55000,
+    "status": "approved"
+  },
+  {
+    "name": "Jane Smith",
+    "department": "IT",
+    "salary": 60000,
+    "status": "approved"
+  },
+  {
+    "name": "Michael Johnson",
+    "department": "CS",
+    "salary": 48000,
+    "status": "pending"
+  },
+  {
+    "name": "Sarah Williams",
+    "department": "Mathematics",
+    "salary": 32000,
+    "status": "approved"
+  }
+])
+
+
+
+
+1. Find the list of teachers in the IT department:
+
+
+db.teachers.find({ department: "IT" });
+
+
+
+2. Find the list of teachers who have a salary greater than 50000:
+
+
+
+db.teachers.find({ salary: { $gt: 50000 } });
+
+
+
+
+
+3. Find the teacher's list in descending order:
+
+
+db.teachers.find().sort({ name: -1 });
+
+
+
+4. Remove the teacher whose status is not approved:
+
+
+
+db.teachers.remove({ status: { $ne: "approved" } });
+
+
+
+5. Give an increment of Rs.20000 to those who have a salary less than 30000:
+
+
+db.teachers.updateMany(
+  { salary: { $lt: 30000 } },
+  { $inc: { salary: 20000 } }
+);
+
+
